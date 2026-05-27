@@ -3,276 +3,306 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Flowly — Automatisez vos réservations</title>
+<title>Flowly — L'assistant IA WhatsApp pour votre commerce</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root{--w:#ffffff;--off:#fafaf8;--stone:#f2f0ec;--stone2:#e8e5df;--mist:#d4d0c8;--tx:#1a1916;--tx2:#4a4740;--tx3:#8a8680;--bl:#2563eb;--bls:#eff6ff;--blm:#bfdbfe;--gn:#16a34a;--gns:#f0fdf4;--gnm:#bbf7d0;--rs:#fff1f2;--s1:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--s2:0 4px 12px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04);--s3:0 12px 32px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.04);--s4:0 24px 64px rgba(0,0,0,.10),0 8px 16px rgba(0,0,0,.06);--r:14px;--rl:20px}
+:root{
+  --w:#fff;--off:#fafaf8;--stone:#f2f0ec;--stone2:#e8e5df;--mist:#d4d0c8;
+  --tx:#1a1916;--tx2:#4a4740;--tx3:#8a8680;
+  --bl:#2563eb;--bls:#eff6ff;--blm:#bfdbfe;
+  --gn:#16a34a;--gns:#f0fdf4;--gnm:#bbf7d0;
+  --s1:0 1px 3px rgba(0,0,0,.06);--s2:0 4px 16px rgba(0,0,0,.07);
+  --s3:0 12px 40px rgba(0,0,0,.09);--s4:0 24px 72px rgba(0,0,0,.12);
+  --r:14px;--rl:20px
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--w);color:var(--tx);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.display{font-family:'DM Serif Display',serif;font-size:clamp(38px,6vw,68px);line-height:1.07;letter-spacing:-.4px}
-.display em{font-style:italic;color:var(--bl)}
-h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,4vw,46px);line-height:1.16;letter-spacing:-.3px}
+h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,4vw,44px);line-height:1.14;letter-spacing:-.3px}
 h3{font-size:17px;font-weight:600;line-height:1.4}
 p{color:var(--tx2);line-height:1.7}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--bl);display:block;margin-bottom:10px}
-.wrap{max-width:1140px;margin:0 auto;padding:0 26px}
-section{padding:92px 0}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--stone2);padding:0 26px;height:66px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--stone2);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s}
 nav.sc{box-shadow:var(--s2)}
 .nlogo{font-family:'DM Serif Display',serif;font-size:21px;color:var(--tx);text-decoration:none;display:flex;align-items:center;gap:8px}
 .ndot{width:8px;height:8px;border-radius:50%;background:var(--bl);box-shadow:0 0 0 3px var(--bls)}
-.nlinks{display:flex;align-items:center;gap:6px}
-.nlinks a{color:var(--tx2);text-decoration:none;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;transition:all .2s}
+.nlinks{display:flex;align-items:center;gap:5px}
+.nlinks a{color:var(--tx2);text-decoration:none;font-size:14px;font-weight:500;padding:7px 12px;border-radius:8px;transition:all .2s}
 .nlinks a:hover{background:var(--stone);color:var(--tx)}
-.ncta{background:var(--tx)!important;color:var(--w)!important;font-weight:600!important;padding:9px 19px!important;border-radius:9px!important}
-.ncta:hover{background:#2d2b27!important;box-shadow:var(--s2)!important}
+.ncta{background:var(--tx)!important;color:var(--w)!important;font-weight:600!important;padding:9px 18px!important;border-radius:9px!important}
+.ncta:hover{background:#2d2b27!important}
 
 /* BUTTONS */
 .bp{display:inline-flex;align-items:center;gap:7px;background:var(--tx);color:var(--w);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:13px 26px;border-radius:11px;border:none;cursor:pointer;text-decoration:none;transition:all .22s;box-shadow:var(--s2)}
 .bp:hover{background:#2d2b27;transform:translateY(-2px);box-shadow:var(--s3)}
 .bs{display:inline-flex;align-items:center;gap:7px;background:var(--w);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;padding:13px 26px;border-radius:11px;border:1.5px solid var(--stone2);cursor:pointer;text-decoration:none;transition:all .22s}
-.bs:hover{background:var(--stone);border-color:var(--mist);transform:translateY(-1px)}
-.bbl{display:inline-flex;align-items:center;gap:7px;background:var(--bl);color:var(--w);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:13px 26px;border-radius:11px;border:none;cursor:pointer;text-decoration:none;transition:all .22s;box-shadow:0 4px 14px rgba(37,99,235,.22)}
-.bbl:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.28)}
+.bs:hover{background:var(--stone);transform:translateY(-1px)}
+.bbl{display:inline-flex;align-items:center;gap:7px;background:var(--bl);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 22px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;transition:all .22s;box-shadow:0 4px 14px rgba(37,99,235,.22)}
+.bbl:hover{background:#1d4ed8;transform:translateY(-2px)}
 
 /* HERO */
-.hero{padding-top:128px;padding-bottom:76px;background:var(--w);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:560px;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(37,99,235,.055) 0%,transparent 70%);pointer-events:none}
-.hero-in{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.hbadge{display:inline-flex;align-items:center;gap:8px;background:var(--bls);border:1px solid var(--blm);border-radius:30px;padding:5px 14px 5px 8px;margin-bottom:22px}
+.hero{padding-top:116px;padding-bottom:72px;background:var(--w);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:480px;background:radial-gradient(ellipse 70% 50% at 50% -5%,rgba(37,99,235,.05) 0%,transparent 70%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:var(--bls);border:1px solid var(--blm);border-radius:30px;padding:5px 14px 5px 8px;margin-bottom:20px}
 .hbdot{width:7px;height:7px;border-radius:50%;background:var(--gn);animation:pg 2s infinite}
 @keyframes pg{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.4)}50%{box-shadow:0 0 0 5px rgba(22,163,74,0)}}
 .hbadge span{font-size:12px;font-weight:600;color:var(--bl)}
-.htit{margin-bottom:20px}
-.hsub{font-size:16px;color:var(--tx2);line-height:1.75;margin-bottom:32px;max-width:460px}
-.hbtns{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:40px}
-.htrust{display:flex;align-items:center;gap:16px}
-.htrust-avs{display:flex}
-.htrust-avs span{width:30px;height:30px;border-radius:50%;border:2px solid var(--w);background:var(--stone2);display:flex;align-items:center;justify-content:center;font-size:12px;margin-left:-7px}
-.htrust-avs span:first-child{margin-left:0}
+.hdisplay{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,60px);line-height:1.08;letter-spacing:-.4px;margin-bottom:18px}
+.hdisplay em{font-style:italic;color:var(--bl)}
+.hsub{font-size:16px;color:var(--tx2);line-height:1.75;margin-bottom:28px;max-width:450px}
+.hbtns{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:32px}
+.htrust{display:flex;align-items:center;gap:13px}
+.havs{display:flex}
+.havs span{width:28px;height:28px;border-radius:50%;border:2px solid var(--w);background:var(--stone2);display:flex;align-items:center;justify-content:center;font-size:12px;margin-left:-7px}
+.havs span:first-child{margin-left:0}
 .htrust p{font-size:13px;color:var(--tx3)}
+.live-counter{background:var(--gns);border:1px solid var(--gnm);border-radius:11px;padding:14px 18px;display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.lc-pulse{width:9px;height:9px;border-radius:50%;background:var(--gn);animation:pg 1.5s infinite;flex-shrink:0}
+.lc-lbl{font-size:12px;color:var(--gn);font-weight:600;margin-bottom:2px}
+.lc-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--tx)}
+.lc-sub{font-size:11px;color:var(--tx3);margin-left:auto}
 
-/* PHONE */
+/* PHONE HERO */
 .ph-wrap{display:flex;justify-content:center;position:relative}
-.ph-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 70%);pointer-events:none}
-.phone{width:272px;background:#1c1c1e;border-radius:42px;padding:13px 13px 18px;box-shadow:0 30px 72px rgba(0,0,0,.18),0 0 0 1px rgba(255,255,255,.07) inset;animation:fl 5s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-.ph-isl{width:90px;height:24px;background:#1c1c1e;border-radius:0 0 16px 16px;margin:0 auto 9px}
-.ph-sc{background:#ece5dd;border-radius:28px;overflow:hidden}
-.ph-top{background:#075e54;padding:11px 13px;display:flex;align-items:center;gap:9px}
-.ph-bk{color:#fff;font-size:17px;opacity:.75}
-.ph-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.ph-nm{font-size:12px;font-weight:600;color:#fff}
-.ph-st{font-size:10px;color:rgba(255,255,255,.72)}
-.ph-bd{padding:9px;display:flex;flex-direction:column;gap:5px;background:#ece5dd}
-.pm{padding:7px 10px;border-radius:7px;font-size:10px;line-height:1.45;max-width:83%;color:#1a1a1a}
-.pi{background:#fff;border-radius:7px 7px 7px 2px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.po{background:#dcf8c6;border-radius:7px 7px 2px 7px;align-self:flex-end;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.pbl{font-size:8px;font-weight:700;color:#128c7e;margin-bottom:2px}
-.ph-ft{background:#f0f0f0;padding:8px 10px;display:flex;align-items:center;gap:6px}
-.ph-fi{flex:1;background:#fff;border-radius:16px;padding:6px 11px;font-size:10px;color:#999}
-.ph-fs{width:30px;height:30px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
+.ph-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 70%);pointer-events:none}
+.phone{width:260px;background:#1c1c1e;border-radius:40px;padding:11px 11px 16px;box-shadow:0 28px 68px rgba(0,0,0,.17),0 0 0 1px rgba(255,255,255,.06) inset;animation:fl 5s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ph-isl{width:84px;height:22px;background:#1c1c1e;border-radius:0 0 14px 14px;margin:0 auto 7px}
+.ph-sc{background:#ece5dd;border-radius:26px;overflow:hidden}
+.wa-top{background:#075e54;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.wa-bk{color:#fff;font-size:15px;opacity:.7}
+.wa-av{width:31px;height:31px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.wa-nm{font-size:11px;font-weight:600;color:#fff}
+.wa-st{font-size:9px;color:rgba(255,255,255,.7)}
+.wa-bd{padding:8px;display:flex;flex-direction:column;gap:5px;background:#ece5dd;min-height:150px}
+.wm{padding:6px 9px;border-radius:7px;font-size:10px;line-height:1.45;max-width:83%;color:#1a1a1a}
+.wi{background:#fff;border-radius:7px 7px 7px 2px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wo{background:#dcf8c6;border-radius:7px 7px 2px 7px;align-self:flex-end;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wbl{font-size:8px;font-weight:700;color:#128c7e;margin-bottom:2px}
+.wft{background:#f0f0f0;padding:7px 9px;display:flex;align-items:center;gap:5px}
+.wfi{flex:1;background:#fff;border-radius:14px;padding:5px 9px;font-size:10px;color:#999}
+.wfs{width:28px;height:28px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
 
 /* STATS */
 .stats{background:var(--stone);border-top:1px solid var(--stone2);border-bottom:1px solid var(--stone2)}
 .stats-in{display:flex}
-.stat{flex:1;padding:34px 22px;text-align:center;border-right:1px solid var(--stone2)}
+.stat{flex:1;padding:30px 18px;text-align:center;border-right:1px solid var(--stone2)}
 .stat:last-child{border:none}
-.snum{font-family:'DM Serif Display',serif;font-size:38px;color:var(--tx);margin-bottom:3px}
+.snum{font-family:'DM Serif Display',serif;font-size:34px;color:var(--tx);margin-bottom:3px}
 .slbl{font-size:12px;color:var(--tx3);font-weight:500}
 
-/* DEMO */
-.demo-sec{background:var(--off)}
-.demo-card{background:var(--w);border-radius:var(--rl);border:1px solid var(--stone2);overflow:hidden;box-shadow:var(--s3)}
-.dtabs{display:flex;border-bottom:1px solid var(--stone2);background:var(--stone);overflow-x:auto}
-.dtab{padding:13px 20px;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;font-family:'DM Sans',sans-serif;transition:all .2s}
-.dtab:hover{color:var(--tx2)}
-.dtab.on{color:var(--bl);border-bottom-color:var(--bl);background:var(--w)}
-.dpanel{display:none;padding:34px}
-.dpanel.on{display:block}
+/* ─── SECTORS SECTION ─── */
+.sectors-sec{background:var(--off)}
+.bubbles{display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+.bubble{
+  background:var(--w);
+  border:1.5px solid var(--stone2);
+  border-radius:100px;
+  padding:13px 20px;
+  display:inline-flex;align-items:center;gap:10px;
+  cursor:pointer;
+  transition:all .25s;
+  font-family:'DM Sans',sans-serif;
+}
+.bubble:hover{transform:translateY(-3px);box-shadow:var(--s2)}
+.bubble.active{transform:translateY(-3px);box-shadow:var(--s2)}
+.bubble-icon{font-size:22px;line-height:1;flex-shrink:0}
+.bubble-name{font-size:14px;font-weight:600;color:var(--tx)}
 
-/* WA DEMO */
-.wa-lay{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
-.wa-ph2{background:#1c1c1e;border-radius:36px;padding:11px;box-shadow:var(--s4);max-width:288px;margin:0 auto}
-.wa-isl2{width:76px;height:20px;background:#1c1c1e;border-radius:0 0 13px 13px;margin:0 auto 7px}
-.wa-sc2{background:#ece5dd;border-radius:24px;overflow:hidden}
-.wa-hdr2{background:#075e54;padding:10px 13px;display:flex;align-items:center;gap:9px}
-.wa-av2{width:33px;height:33px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.wa-nm2{font-size:12px;font-weight:600;color:#fff}
-.wa-on2{font-size:10px;color:rgba(255,255,255,.72)}
-.wa-msgs{padding:9px;display:flex;flex-direction:column;gap:6px;min-height:255px;max-height:290px;overflow-y:auto;background:#ece5dd}
-.wm{padding:7px 10px;border-radius:7px;font-size:11px;line-height:1.5;max-width:82%;color:#1a1a1a}
-.wi{background:#fff;border-radius:7px 7px 7px 2px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.wo{background:#dcf8c6;border-radius:7px 7px 2px 7px;align-self:flex-end;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.wbl{font-size:9px;font-weight:700;color:#128c7e;margin-bottom:2px}
-.wtm{font-size:9px;color:#888;text-align:right;margin-top:2px}
-.wtyp{display:flex;gap:3px;padding:7px 10px;background:#fff;border-radius:7px 7px 7px 2px;width:42px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.wtyp span{width:5px;height:5px;border-radius:50%;background:#aaa;animation:bn 1.2s infinite}
-.wtyp span:nth-child(2){animation-delay:.2s}.wtyp span:nth-child(3){animation-delay:.4s}
-@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
-.wa-ft2{background:#f0f0f0;padding:8px 10px;display:flex;align-items:center;gap:6px}
-.wa-inp2{flex:1;background:#fff;border-radius:16px;padding:6px 11px;font-size:11px;color:#999}
-.wa-snd2{width:31px;height:31px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0}
-.dbtn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:12px;background:#075e54;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
-.dbtn:hover{background:#054d45;transform:translateY(-1px);box-shadow:var(--s2)}
-.upsell{margin-top:11px;background:var(--gns);border:1px solid var(--gnm);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:11px;animation:fi .4s ease}
-@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.hidden{display:none!important}
-.dfeats{display:flex;flex-direction:column;gap:0}
-.dfeat{display:flex;align-items:flex-start;gap:11px;padding:14px 0;border-bottom:1px solid var(--stone2)}
-.dfeat:last-child{border:none}
-.dfic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.dft{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:1px}
-.dfd{font-size:13px;color:var(--tx3)}
+/* DEMO PANEL */
+.demo-panel{
+  margin-top:22px;
+  background:var(--w);
+  border-radius:var(--rl);
+  border:1.5px solid var(--stone2);
+  overflow:hidden;
+  box-shadow:var(--s3);
+  animation:dpin .35s cubic-bezier(.16,1,.3,1);
+  display:none;
+}
+@keyframes dpin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.dp-header{padding:18px 24px;border-bottom:1px solid var(--stone2);display:flex;align-items:center;gap:13px}
+.dp-hic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.dp-header h3{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:2px}
+.dp-header p{font-size:13px;color:var(--tx3);margin:0}
+.dp-close{margin-left:auto;background:none;border:1.5px solid var(--stone2);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--tx2);transition:all .2s;flex-shrink:0}
+.dp-close:hover{border-color:currentColor}
+.dp-body{display:grid;grid-template-columns:280px 1fr;gap:0}
+.dp-left{padding:24px;border-right:1px solid var(--stone2);background:var(--off);display:flex;flex-direction:column;align-items:center;gap:12px}
+.dp-right{padding:24px;display:flex;flex-direction:column;gap:18px}
 
-/* ROI */
-.roi-lay{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:start}
-.roi-sl{display:flex;flex-direction:column;gap:18px}
-.roi-r label{font-size:13px;font-weight:500;color:var(--tx2);display:flex;justify-content:space-between;margin-bottom:7px}
-.roi-r label span{font-weight:700;color:var(--bl)}
-input[type=range]{width:100%;height:4px;accent-color:var(--bl);cursor:pointer}
-.roi-res{background:var(--tx);border-radius:var(--rl);padding:26px;color:#fff}
-.roi-main{text-align:center;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:18px}
-.roi-pct{font-family:'DM Serif Display',serif;font-size:60px;color:#fff;line-height:1}
-.roi-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
-.roi-row{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;color:rgba(255,255,255,.55)}
-.roi-row strong{color:#fff;font-weight:600}
-.roi-mini{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
-.roi-mc{background:var(--stone);border-radius:9px;padding:12px}
-.roi-mc-l{font-size:11px;color:var(--tx3);margin-bottom:3px}
-.roi-mc-v{font-size:19px;font-weight:700}
+/* WA PHONE IN DEMO */
+.dph{background:#1c1c1e;border-radius:34px;padding:10px 10px 13px;box-shadow:var(--s4);width:232px}
+.dph-isl{width:68px;height:18px;background:#1c1c1e;border-radius:0 0 11px 11px;margin:0 auto 6px}
+.dph-sc{background:#ece5dd;border-radius:22px;overflow:hidden}
+.dh{background:#075e54;padding:9px 11px;display:flex;align-items:center;gap:8px}
+.dav{width:29px;height:29px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.dnm{font-size:11px;font-weight:600;color:#fff}
+.don{font-size:9px;color:rgba(255,255,255,.7)}
+.dmsgs{padding:8px;display:flex;flex-direction:column;gap:5px;min-height:230px;max-height:268px;overflow-y:auto;background:#ece5dd}
+.dm{padding:6px 9px;border-radius:6px;font-size:11px;line-height:1.48;max-width:83%;color:#1a1a1a}
+.di{background:#fff;border-radius:6px 6px 6px 2px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.07)}
+.do{background:#dcf8c6;border-radius:6px 6px 2px 6px;align-self:flex-end;box-shadow:0 1px 2px rgba(0,0,0,.07)}
+.dbl{font-size:8px;font-weight:700;color:#128c7e;margin-bottom:2px}
+.dtm{font-size:8px;color:#888;text-align:right;margin-top:2px}
+.dtyp{display:flex;gap:3px;padding:6px 9px;background:#fff;border-radius:6px 6px 6px 2px;width:36px;box-shadow:0 1px 2px rgba(0,0,0,.07)}
+.dtyp span{width:4px;height:4px;border-radius:50%;background:#aaa;animation:bn 1.2s infinite}
+.dtyp span:nth-child(2){animation-delay:.2s}.dtyp span:nth-child(3){animation-delay:.4s}
+@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-3px)}}
+.dft-bar{background:#f0f0f0;padding:7px 9px;display:flex;align-items:center;gap:5px}
+.dft-in{flex:1;background:#fff;border-radius:13px;padding:5px 9px;font-size:10px;color:#999}
+.dft-snd{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px}
+.demo-run-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:#fff;transition:all .2s}
+.demo-run-btn:hover{transform:translateY(-1px);box-shadow:var(--s2)}
+.ca-badge{background:var(--gns);border:1px solid var(--gnm);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:11px;width:100%;animation:cabg .4s ease}
+@keyframes cabg{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.ca-icon{font-size:20px}
+.ca-lbl{font-size:11px;font-weight:600;color:var(--gn);margin-bottom:2px}
+.ca-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--tx)}
+
+/* RIGHT SIDE */
+.dp-feats{display:flex;flex-direction:column}
+.dp-feat{display:flex;align-items:flex-start;gap:11px;padding:12px 0;border-bottom:1px solid var(--stone2)}
+.dp-feat:last-child{border:none}
+.dp-fic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.dp-ft{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:1px}
+.dp-fd{font-size:12px;color:var(--tx3)}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--stone);border-radius:var(--r);overflow:hidden;border:1px solid var(--stone2)}
+.how-step{padding:20px 16px;text-align:center;border-right:1px solid var(--stone2)}
+.how-step:last-child{border:none}
+.how-ic{font-size:22px;margin-bottom:8px}
+.how-t{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:3px}
+.how-d{font-size:12px;color:var(--tx3);line-height:1.5}
+
+/* REASSURANCE */
+.reas-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.reas-b{display:flex;align-items:center;gap:7px;background:var(--gns);border:1px solid var(--gnm);border-radius:8px;padding:9px 14px;font-size:12px;font-weight:500;color:var(--tx2)}
 
 /* SERVICES */
-.svgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.svc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:26px;transition:all .25s}
+.svgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.svc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:24px;transition:all .25s}
 .svc:hover{border-color:var(--bl);box-shadow:var(--s2);transform:translateY(-3px)}
-.svi{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px}
-.svc h3{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--tx)}
+.svi{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:13px}
+.svc h3{font-size:15px;font-weight:600;margin-bottom:5px;color:var(--tx)}
 .svc p{font-size:13px;color:var(--tx3);line-height:1.65}
 
-/* SECTORS */
-.secgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
-.seci{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:16px 10px;text-align:center;transition:all .22s}
-.seci:hover{border-color:var(--bl);background:var(--bls);transform:translateY(-2px)}
-.sei{font-size:23px;margin-bottom:5px}
-.sen{font-size:11px;font-weight:600;color:var(--tx3)}
-
-/* PROCESS */
-.proc{position:relative;max-width:540px}
-.proc-line{position:absolute;left:26px;top:27px;bottom:27px;width:1px;background:linear-gradient(180deg,var(--bl),var(--stone2))}
-.pstep{display:flex;gap:18px;padding:26px 0}
-.pnum{width:52px;height:52px;border-radius:50%;background:var(--w);border:2px solid var(--bl);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:18px;color:var(--bl);flex-shrink:0;position:relative;z-index:1}
-.pbod{padding-top:9px}
-.pbod h3{font-size:16px;font-weight:600;margin-bottom:5px;color:var(--tx)}
-.pbod p{font-size:13px;color:var(--tx3);line-height:1.65}
-
 /* PRICING */
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.pc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--rl);padding:30px;position:relative;transition:all .25s}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.pc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--rl);padding:28px;position:relative;transition:all .25s}
 .pc:hover{box-shadow:var(--s3);transform:translateY(-3px)}
 .pc.feat{background:var(--tx);border-color:var(--tx);box-shadow:var(--s4)}
 .pbdg{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--bl);color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:18px;white-space:nowrap}
-.pnm{font-size:16px;font-weight:600;color:var(--tx);margin-bottom:3px}
-.pc.feat .pnm{color:rgba(255,255,255,.65)}
-.pdsc{font-size:13px;color:var(--tx3);margin-bottom:18px}
-.pc.feat .pdsc{color:rgba(255,255,255,.4)}
-.pprice{font-family:'DM Serif Display',serif;font-size:46px;color:var(--tx);line-height:1;margin-bottom:5px}
+.pnm{font-size:15px;font-weight:600;color:var(--tx);margin-bottom:3px}
+.pc.feat .pnm{color:rgba(255,255,255,.6)}
+.pdsc{font-size:12px;color:var(--tx3);margin-bottom:16px}
+.pc.feat .pdsc{color:rgba(255,255,255,.38)}
+.pprice{font-family:'DM Serif Display',serif;font-size:42px;color:var(--tx);line-height:1;margin-bottom:5px}
 .pc.feat .pprice{color:#fff}
 .pprice sub{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--tx3);font-weight:400}
-.pc.feat .pprice sub{color:rgba(255,255,255,.4)}
-.pfl{list-style:none;margin:18px 0 22px}
-.pfl li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:13px;color:var(--tx2);border-bottom:1px solid var(--stone)}
-.pc.feat .pfl li{color:rgba(255,255,255,.65);border-bottom-color:rgba(255,255,255,.08)}
+.pc.feat .pprice sub{color:rgba(255,255,255,.38)}
+.pfl{list-style:none;margin:16px 0 20px}
+.pfl li{display:flex;align-items:flex-start;gap:7px;padding:6px 0;font-size:13px;color:var(--tx2);border-bottom:1px solid var(--stone)}
+.pc.feat .pfl li{color:rgba(255,255,255,.65);border-bottom-color:rgba(255,255,255,.07)}
 .pfl li:last-child{border:none}
 .pck{color:var(--bl);font-weight:700;flex-shrink:0}
 .pc.feat .pck{color:#5eead4}
-.bpi{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;background:#fff;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 18px;border-radius:9px;border:none;cursor:pointer;text-decoration:none;transition:all .22s}
+.bpi{display:flex;align-items:center;justify-content:center;width:100%;background:#fff;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px;border-radius:9px;border:none;cursor:pointer;text-decoration:none;transition:all .22s}
 .bpi:hover{background:var(--stone)}
 
 /* TESTIMONIALS */
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
 .tc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:22px;transition:all .25s}
 .tc:hover{box-shadow:var(--s2)}
-.stars{color:#f59e0b;font-size:13px;margin-bottom:11px}
-.tc p{font-size:13px;color:var(--tx2);line-height:1.7;font-style:italic;margin-bottom:14px}
+.stars{color:#f59e0b;font-size:13px;margin-bottom:10px}
+.tc p{font-size:13px;color:var(--tx2);line-height:1.7;font-style:italic;margin-bottom:13px}
 .tauth{display:flex;align-items:center;gap:9px}
-.tav{width:36px;height:36px;border-radius:50%;background:var(--stone2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--tx2);flex-shrink:0}
+.tav{width:36px;height:36px;border-radius:50%;background:var(--stone2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--tx2)}
 .taun{font-size:13px;font-weight:600;color:var(--tx)}
 .taub{font-size:11px;color:var(--tx3)}
 
 /* REGISTER */
 .reg-sec{background:linear-gradient(135deg,var(--tx) 0%,#2d2b27 100%);position:relative;overflow:hidden}
-.reg-sec::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.14) 0%,transparent 70%);pointer-events:none}
-.reg-in{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.reg-l h2{color:#fff;margin-bottom:14px}
-.reg-l p{color:rgba(255,255,255,.55);font-size:16px;line-height:1.7;margin-bottom:28px}
-.reg-prom{display:flex;flex-direction:column;gap:11px}
-.rpi{display:flex;align-items:center;gap:11px;font-size:14px;color:rgba(255,255,255,.75)}
-.rpic{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.reg-form{background:var(--w);border-radius:var(--rl);padding:34px;box-shadow:var(--s4)}
-.reg-form h3{font-size:19px;font-weight:700;margin-bottom:5px;color:var(--tx)}
-.fmsub{font-size:13px;color:var(--tx3);margin-bottom:22px}
-.fg{margin-bottom:13px}
-.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:4px;letter-spacing:.02em}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--off);border:1.5px solid var(--stone2);border-radius:9px;padding:10px 13px;color:var(--tx);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+.reg-sec::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.14) 0%,transparent 70%);pointer-events:none}
+.reg-in{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.reg-l h2{color:#fff;margin-bottom:13px}
+.reg-l p{color:rgba(255,255,255,.55);font-size:15px;line-height:1.7;margin-bottom:24px}
+.reg-prom{display:flex;flex-direction:column;gap:10px}
+.rpi{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.72)}
+.rpic{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.reg-form{background:var(--w);border-radius:var(--rl);padding:30px;box-shadow:var(--s4)}
+.reg-form h3{font-size:17px;font-weight:700;margin-bottom:4px;color:var(--tx)}
+.fmsub{font-size:13px;color:var(--tx3);margin-bottom:18px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--off);border:1.5px solid var(--stone2);border-radius:9px;padding:10px 12px;color:var(--tx);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(37,99,235,.08);background:var(--w)}
-.fg textarea{resize:vertical;min-height:78px}
+.fg textarea{resize:vertical;min-height:72px}
 .fg select option{background:var(--w)}
-.fgrow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.fsuccess{display:none;background:var(--gns);border:1px solid var(--gnm);border-radius:9px;padding:14px;text-align:center;margin-top:11px}
+.fgr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fsuccess{display:none;background:var(--gns);border:1px solid var(--gnm);border-radius:9px;padding:12px;text-align:center;margin-top:10px}
 .fsuccess p{color:var(--gn);font-size:14px;font-weight:600;margin:0}
 
 /* SHARE */
 .share-sec{background:var(--stone)}
-.share-in{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.qr-card{background:var(--w);border-radius:var(--rl);padding:34px;text-align:center;box-shadow:var(--s3);border:1px solid var(--stone2)}
-.qr-frame{width:164px;height:164px;background:var(--w);border:1.5px solid var(--stone2);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;padding:9px}
-.qr-url{background:var(--stone);border:1px solid var(--stone2);border-radius:7px;padding:8px 14px;font-size:12px;font-family:monospace;color:var(--tx2);display:inline-block;margin-bottom:14px;word-break:break-all}
+.share-in{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.qr-card{background:var(--w);border-radius:var(--rl);padding:30px;text-align:center;box-shadow:var(--s3);border:1px solid var(--stone2)}
+.qr-frame{width:154px;height:154px;background:var(--w);border:1.5px solid var(--stone2);border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;padding:8px}
+.qr-url{background:var(--stone);border:1px solid var(--stone2);border-radius:7px;padding:7px 12px;font-size:12px;font-family:monospace;color:var(--tx2);display:inline-block;margin-bottom:12px;word-break:break-all}
 .qr-btns{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}
-.qbtn{padding:8px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;border:1.5px solid var(--stone2);background:var(--w);color:var(--tx2);transition:all .2s}
+.qbtn{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;border:1.5px solid var(--stone2);background:var(--w);color:var(--tx2);transition:all .2s}
 .qbtn:hover{border-color:var(--bl);color:var(--bl)}
-.slc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:18px;margin-bottom:12px}
-.slc-l{font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em}
-.slc-url{font-size:13px;font-family:monospace;color:var(--bl);background:var(--bls);padding:8px 11px;border-radius:7px;display:flex;align-items:center;justify-content:space-between;gap:7px;cursor:pointer;border:1px solid var(--blm);word-break:break-all}
+.slc{background:var(--w);border:1px solid var(--stone2);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.slc-l{font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em}
+.slc-url{font-size:13px;font-family:monospace;color:var(--bl);background:var(--bls);padding:7px 11px;border-radius:7px;display:flex;align-items:center;justify-content:space-between;gap:7px;cursor:pointer;border:1px solid var(--blm);word-break:break-all}
 .slc-cp{font-size:11px;font-weight:600;color:var(--bl);flex-shrink:0;padding:3px 7px;background:var(--w);border-radius:5px}
 
 /* FOOTER */
-footer{background:var(--tx);padding:44px 26px 28px}
-.ft-in{display:flex;justify-content:space-between;align-items:flex-start;gap:28px;flex-wrap:wrap;margin-bottom:36px}
-.ft-brand .fl{font-family:'DM Serif Display',serif;font-size:21px;color:#fff;margin-bottom:7px}
-.ft-brand p{font-size:12px;color:rgba(255,255,255,.38);max-width:200px;line-height:1.6}
-.ft-col h4{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:13px}
-.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:7px;transition:color .2s}
+footer{background:var(--tx);padding:40px 24px 24px}
+.ft-in{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+.ft-brand .fl{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;margin-bottom:6px}
+.ft-brand p{font-size:12px;color:rgba(255,255,255,.36);max-width:185px;line-height:1.6}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:11px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none;margin-bottom:7px;transition:color .2s}
 .ft-col a:hover{color:#fff}
-.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
-.ft-bot p{font-size:12px;color:rgba(255,255,255,.25)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.ft-bot p{font-size:12px;color:rgba(255,255,255,.24)}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .hero-in,.wa-lay,.roi-lay,.reg-in,.share-in{grid-template-columns:1fr}
-  .svgrid,.pgrid,.tgrid{grid-template-columns:1fr}
+  .hero-grid,.reg-in,.share-in{grid-template-columns:1fr}
   .ph-wrap{display:none}
+  .svgrid,.pgrid,.tgrid{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .how-step:nth-child(2){border-right:none}
+  .how-step:nth-child(3){border-top:1px solid var(--stone2)}
+  .dp-body{grid-template-columns:1fr}
+  .dp-left{border-right:none;border-bottom:1px solid var(--stone2)}
   .nlinks a:not(.ncta){display:none}
-  .ft-in{flex-direction:column}
   .stats-in{flex-wrap:wrap}
   .stat{min-width:50%;border-right:none;border-bottom:1px solid var(--stone2)}
+  .ft-in{flex-direction:column}
 }
-@keyframes fiu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.fu{animation:fiu .6s ease both}
-.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+@keyframes fiu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fiu .55s ease both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.3s}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nlogo"><div class="ndot"></div>Flowly</a>
   <div class="nlinks">
-    <a href="#demo">Démo</a>
+    <a href="#demos">Démos</a>
     <a href="#tarifs">Tarifs</a>
     <a href="#inscription">S'inscrire</a>
     <a href="#inscription" class="ncta">Commencer gratuitement</a>
@@ -282,18 +312,23 @@ footer{background:var(--tx);padding:44px 26px 28px}
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <div class="hero-in">
+    <div class="hero-grid">
       <div>
         <div class="hbadge fu"><div class="hbdot"></div><span>Disponible à Paris dès maintenant</span></div>
-        <div class="display htit fu d1">Fini de répondre<br/>aux messages.<br/><em>L'IA le fait.</em></div>
-        <p class="hsub fu d2">Flowly installe un assistant IA sur votre WhatsApp et Instagram en 2 heures. Il gère vos réservations, répond à vos clients et génère des ventes — 24h/24, sans vous.</p>
+        <div class="hdisplay fu d1">L'assistant IA<br/>qui répond, réserve<br/>et <em>vend</em> pour vous.</div>
+        <p class="hsub fu d2">Flowly installe un assistant WhatsApp IA sur votre commerce en 2 heures. Réservations, questions, rappels et ventes — 24h/24, sans vous.</p>
+        <div class="live-counter fu d2">
+          <div class="lc-pulse"></div>
+          <div><div class="lc-lbl">Revenus générés automatiquement aujourd'hui</div><div class="lc-num" id="live-total">0€</div></div>
+          <div class="lc-sub">En direct · Paris</div>
+        </div>
         <div class="hbtns fu d3">
-          <a href="#inscription" class="bp">Commencer gratuitement →</a>
-          <a href="#demo" class="bs">▶ Voir la démo</a>
+          <a href="#demos" class="bp">Tester une démo →</a>
+          <a href="#inscription" class="bs">1er mois gratuit</a>
         </div>
         <div class="htrust fu d4">
-          <div class="htrust-avs"><span>🍕</span><span>✂️</span><span>☕</span><span>💇</span></div>
-          <p>1er mois offert · Sans engagement · Installation en 2h</p>
+          <div class="havs"><span>🍕</span><span>✂️</span><span>☕</span><span>💅</span><span>🏨</span></div>
+          <p>Restaurants · Coiffeurs · Barbiers · Beauté · Hôtels</p>
         </div>
       </div>
       <div class="ph-wrap">
@@ -301,20 +336,20 @@ footer{background:var(--tx);padding:44px 26px 28px}
         <div class="phone">
           <div class="ph-isl"></div>
           <div class="ph-sc">
-            <div class="ph-top">
-              <div class="ph-bk">‹</div>
-              <div class="ph-av">🍕</div>
-              <div><div class="ph-nm">Le Bistrot</div><div class="ph-st">● Assistant IA · En ligne</div></div>
+            <div class="wa-top">
+              <div class="wa-bk">‹</div>
+              <div class="wa-av">🍕</div>
+              <div><div class="wa-nm">Le Bistrot</div><div class="wa-st">● Assistant IA · En ligne</div></div>
             </div>
-            <div class="ph-bd">
-              <div class="pm po">Table pour 4 ce soir 20h ?</div>
-              <div class="pm pi"><div class="pbl">🤖 Assistant IA</div>Bonsoir ! ✅ Table dispo. Nom ?</div>
-              <div class="pm po">Dupont</div>
-              <div class="pm pi"><div class="pbl">🤖 Assistant IA</div>Confirmé M. Dupont ! 🎉<br/>👉 Menu dégustation 45€/pers ?</div>
-              <div class="pm po">Oui pour 2 !</div>
-              <div class="pm pi" style="background:linear-gradient(135deg,#dcfce7,#fff)"><div class="pbl" style="color:#15803d">💰 +90€ générés</div>Super ! À ce soir 🍷</div>
+            <div class="wa-bd">
+              <div class="wm wo">Table pour 4 ce soir 20h ?</div>
+              <div class="wm wi"><div class="wbl">🤖 IA</div>Bonsoir ! ✅ Table dispo. Nom ?</div>
+              <div class="wm wo">Dupont</div>
+              <div class="wm wi"><div class="wbl">🤖 IA</div>Confirmé M. Dupont ! 🎉<br/>👉 Menu dégustation 45€/pers ?</div>
+              <div class="wm wo">Oui pour 2 !</div>
+              <div class="wm wi" style="background:linear-gradient(135deg,#dcfce7,#fff)"><div class="wbl" style="color:#15803d">💰 +90€ générés</div>Super ! À ce soir 🍷</div>
             </div>
-            <div class="ph-ft"><div class="ph-fi">Répondre...</div><div class="ph-fs">➤</div></div>
+            <div class="wft"><div class="wfi">Répondre...</div><div class="wfs">➤</div></div>
           </div>
         </div>
       </div>
@@ -326,93 +361,50 @@ footer{background:var(--tx);padding:44px 26px 28px}
 <div class="stats">
   <div class="wrap">
     <div class="stats-in">
-      <div class="stat"><div class="snum">24h/24</div><div class="slbl">Disponibilité garantie</div></div>
-      <div class="stat"><div class="snum">2h</div><div class="slbl">Temps d'installation</div></div>
-      <div class="stat"><div class="snum">+15%</div><div class="slbl">CA moyen via upsell</div></div>
-      <div class="stat"><div class="snum">60h</div><div class="slbl">Économisées par mois</div></div>
+      <div class="stat"><div class="snum">24h/24</div><div class="slbl">Disponibilité</div></div>
+      <div class="stat"><div class="snum">2h</div><div class="slbl">Installation</div></div>
+      <div class="stat"><div class="snum">+15%</div><div class="slbl">CA via upsell</div></div>
+      <div class="stat"><div class="snum">60h</div><div class="slbl">Économisées/mois</div></div>
     </div>
   </div>
 </div>
 
-<!-- DEMO -->
-<section class="demo-sec" id="demo">
+<!-- DEMOS PAR MÉTIER -->
+<section class="sectors-sec" id="demos">
   <div class="wrap">
-    <div style="margin-bottom:40px">
-      <span class="lbl">Démo interactive</span>
-      <h2>Voyez-le en action<br/>en temps réel</h2>
+    <div style="margin-bottom:30px">
+      <span class="lbl">Démos interactives</span>
+      <h2>Choisissez votre métier<br/>et testez en direct</h2>
+      <p style="margin-top:9px;font-size:15px;max-width:500px">Cliquez sur votre secteur — une conversation WhatsApp réaliste s'affiche. C'est exactement ce que verra votre client.</p>
     </div>
-    <div class="demo-card">
-      <div class="dtabs">
-        <button class="dtab on" onclick="showTab('wa',this)">💬 Démo WhatsApp live</button>
-        <button class="dtab" onclick="showTab('roi',this)">📊 Calculez votre ROI</button>
-        <button class="dtab" onclick="showTab('prob',this)">⚠️ Le problème actuel</button>
+
+    <!-- BUBBLES -->
+    <div class="bubbles" id="bubbles-container"></div>
+
+    <!-- DEMO PANEL -->
+    <div class="demo-panel" id="demo-panel"></div>
+
+    <!-- HOW IT WORKS -->
+    <div style="margin-top:44px">
+      <div style="text-align:center;margin-bottom:18px">
+        <span class="lbl">Comment ça fonctionne</span>
+        <h3 style="font-size:19px;font-weight:700;color:var(--tx)">Simple. Automatique. Efficace.</h3>
       </div>
-      <div id="tab-wa" class="dpanel on">
-        <div class="wa-lay">
-          <div>
-            <div class="wa-ph2">
-              <div class="wa-isl2"></div>
-              <div class="wa-sc2">
-                <div class="wa-hdr2">
-                  <div class="wa-av2">🍕</div>
-                  <div><div class="wa-nm2">Le Bistrot Parisien</div><div class="wa-on2">● Assistant IA · 24h/24</div></div>
-                </div>
-                <div class="wa-msgs" id="wachat"></div>
-                <div class="wa-ft2"><div class="wa-inp2">Envoyer un message...</div><div class="wa-snd2">➤</div></div>
-              </div>
-            </div>
-            <button class="dbtn" id="dbtn" onclick="startDemo()">▶ Lancer la démo en direct</button>
-            <div class="upsell hidden" id="upsell">
-              <span style="font-size:21px">💰</span>
-              <div><div style="font-size:11px;font-weight:600;color:var(--gn);margin-bottom:2px">Upsell automatique généré</div><div style="font-size:16px;font-weight:700;color:var(--tx)">+90€ sans intervention</div></div>
-            </div>
-          </div>
-          <div style="padding-top:6px">
-            <h3 style="font-size:19px;margin-bottom:7px">Ce que voit votre client</h3>
-            <p style="font-size:14px;margin-bottom:22px">C'est exactement la conversation WhatsApp — sans que vous touchiez votre téléphone.</p>
-            <div class="dfeats">
-              <div class="dfeat"><div class="dfic" style="background:var(--bls)">⚡</div><div><div class="dft">Réponse en moins de 3 secondes</div><div class="dfd">Même à 2h du matin, pendant le service.</div></div></div>
-              <div class="dfeat"><div class="dfic" style="background:var(--gns)">💰</div><div><div class="dft">Upsell intelligent</div><div class="dfd">Propose le menu du soir au bon moment.</div></div></div>
-              <div class="dfeat"><div class="dfic" style="background:var(--stone)">📋</div><div><div class="dft">Confirmation automatique</div><div class="dfd">Rappel envoyé 2h avant, zéro no-show.</div></div></div>
-              <div class="dfeat"><div class="dfic" style="background:#fefce8">🎯</div><div><div class="dft">Personnalisé à 100%</div><div class="dfd">Votre menu, vos horaires, votre ton.</div></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="how-grid">
+        <div class="how-step"><div class="how-ic">📱</div><div class="how-t">Le client écrit</div><div class="how-d">Sur WhatsApp ou Instagram, comme d'habitude</div></div>
+        <div class="how-step"><div class="how-ic">🤖</div><div class="how-t">L'IA répond</div><div class="how-d">En moins de 3 secondes, 24h/24, 7j/7</div></div>
+        <div class="how-step"><div class="how-ic">📅</div><div class="how-t">Le RDV est ajouté</div><div class="how-d">Automatiquement dans votre Google Calendar</div></div>
+        <div class="how-step"><div class="how-ic">✅</div><div class="how-t">Vous recevez</div><div class="how-d">La confirmation directement sur votre téléphone</div></div>
       </div>
-      <div id="tab-roi" class="dpanel">
-        <h3 style="font-size:19px;margin-bottom:5px">Calculez votre ROI</h3>
-        <p style="font-size:14px;margin-bottom:26px">Ajustez selon votre situation — les résultats se calculent en direct.</p>
-        <div class="roi-lay">
-          <div class="roi-sl">
-            <div class="roi-r"><label>Messages WhatsApp / jour<span id="v1">35</span></label><input type="range" min="10" max="100" step="5" value="35" oninput="updROI()" id="s1"/></div>
-            <div class="roi-r"><label>Tables servies / jour<span id="v2">12</span></label><input type="range" min="5" max="80" step="1" value="12" oninput="updROI()" id="s2"/></div>
-            <div class="roi-r"><label>Ticket moyen (€)<span id="v3">38€</span></label><input type="range" min="15" max="120" step="5" value="38" oninput="updROI()" id="s3"/></div>
-            <div class="roi-mini">
-              <div class="roi-mc"><div class="roi-mc-l">⏱️ Heures économisées/mois</div><div class="roi-mc-v" style="color:var(--bl)" id="rh">53h</div></div>
-              <div class="roi-mc"><div class="roi-mc-l">📈 Upsell généré/mois</div><div class="roi-mc-v" style="color:var(--gn)" id="ru">+1 620€</div></div>
-            </div>
-          </div>
-          <div class="roi-res">
-            <div class="roi-main">
-              <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:7px">Votre ROI mensuel</div>
-              <div class="roi-pct" id="rr">548%</div>
-              <div class="roi-sub">sur votre abonnement 250€/mois</div>
-            </div>
-            <div class="roi-row"><span>Coût mensuel</span><strong>250 €</strong></div>
-            <div class="roi-row"><span>Revenus supplémentaires</span><strong id="rd2">1 620 €</strong></div>
-            <div class="roi-row" style="border-top:1px solid rgba(255,255,255,.1);padding-top:11px;margin-top:3px"><span style="color:rgba(255,255,255,.75);font-weight:600">Gain net / mois</span><strong style="color:#5eead4;font-size:15px" id="rd3">1 370 €</strong></div>
-          </div>
-        </div>
-      </div>
-      <div id="tab-prob" class="dpanel">
-        <h3 style="font-size:19px;margin-bottom:5px">Ce que vivent vos concurrents</h3>
-        <p style="font-size:14px;margin-bottom:22px">Et ce que vous évitez avec Flowly.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px">
-          <div style="background:var(--rs);border:1px solid #fecdd3;border-radius:var(--r);padding:18px"><div style="font-size:20px;margin-bottom:9px">😤</div><div style="font-weight:600;color:#be123c;margin-bottom:5px">35–50 messages/jour</div><div style="font-size:13px;color:#9f1239;line-height:1.6">2h perdues à répondre sur 3 apps pendant le service. <strong>60h/mois gaspillées.</strong></div></div>
-          <div style="background:var(--rs);border:1px solid #fecdd3;border-radius:var(--r);padding:18px"><div style="font-size:20px;margin-bottom:9px">💸</div><div style="font-weight:600;color:#be123c;margin-bottom:5px">Clients perdus la nuit</div><div style="font-size:13px;color:#9f1239;line-height:1.6">Message à 23h, réponse à 9h. Il a réservé ailleurs. <strong>≈5 tables/semaine perdues.</strong></div></div>
-          <div style="background:var(--rs);border:1px solid #fecdd3;border-radius:var(--r);padding:18px"><div style="font-size:20px;margin-bottom:9px">📉</div><div style="font-weight:600;color:#be123c;margin-bottom:5px">Zéro upsell</div><div style="font-size:13px;color:#9f1239;line-height:1.6">Pas de suggestion menu, pas de relance. <strong>≈200€/semaine laissés sur la table.</strong></div></div>
-        </div>
-      </div>
+    </div>
+
+    <!-- REASSURANCE -->
+    <div class="reas-row">
+      <div class="reas-b">⚡ Installation en 1 à 2 heures</div>
+      <div class="reas-b">🛠️ Toute l'installation est prise en charge</div>
+      <div class="reas-b">🔒 Connexion directe WhatsApp Business</div>
+      <div class="reas-b">🙌 Aucune compétence technique requise</div>
+      <div class="reas-b">🎁 1er mois offert, sans engagement</div>
     </div>
   </div>
 </section>
@@ -420,36 +412,14 @@ footer{background:var(--tx);padding:44px 26px 28px}
 <!-- SERVICES -->
 <section style="background:var(--w)" id="services">
   <div class="wrap">
-    <div style="margin-bottom:44px"><span class="lbl">Ce qu'on fait</span><h2>Tout ce qu'on automatise<br/>pour vous</h2></div>
+    <div style="margin-bottom:38px"><span class="lbl">Ce qu'on fait</span><h2>Tout ce qu'on automatise<br/>pour vous</h2></div>
     <div class="svgrid">
-      <div class="svc"><div class="svi" style="background:var(--bls)">💬</div><h3>Réservations automatiques</h3><p>Confirmation instantanée, rappels 2h avant, gestion des annulations. Votre agenda se remplit seul.</p></div>
-      <div class="svc"><div class="svi" style="background:var(--gns)">💰</div><h3>Upsell intelligent</h3><p>Menus spéciaux, extras et offres du soir proposés au bon moment. +15% de CA en moyenne.</p></div>
-      <div class="svc"><div class="svi" style="background:#fefce8">⭐</div><h3>Avis Google automatiques</h3><p>Après chaque visite, l'assistant invite vos clients satisfaits. Votre note grimpe naturellement.</p></div>
-      <div class="svc"><div class="svi" style="background:#f5f3ff">📊</div><h3>Rapport mensuel</h3><p>Réservations, CA généré, upsells réalisés — tout mesuré et envoyé chaque mois.</p></div>
-      <div class="svc"><div class="svi" style="background:var(--stone)">🎯</div><h3>FAQ instantanée</h3><p>Horaires, parking, allergies, carte du jour — répondus en 3 secondes, 24h/24.</p></div>
-      <div class="svc"><div class="svi" style="background:var(--rs)">🔔</div><h3>Relances soirs creux</h3><p>Promo automatique les mardis et mercredis pour remplir les tables vides.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTORS -->
-<section style="background:var(--off)">
-  <div class="wrap">
-    <div style="margin-bottom:36px"><span class="lbl">Secteurs</span><h2>Pour tout type de commerce local</h2></div>
-    <div class="secgrid" id="secgrid"></div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section style="background:var(--w)">
-  <div class="wrap">
-    <div style="margin-bottom:44px"><span class="lbl">Comment ça marche</span><h2>Opérationnel<br/>en une journée</h2></div>
-    <div class="proc">
-      <div class="proc-line"></div>
-      <div class="pstep"><div class="pnum">1</div><div class="pbod"><h3>Appel de découverte (15 min)</h3><p>On discute de vos horaires, votre menu, vos questions fréquentes. Zéro technique de votre côté.</p></div></div>
-      <div class="pstep"><div class="pnum">2</div><div class="pbod"><h3>Installation sur place (2h)</h3><p>On connecte WhatsApp Business et Instagram, on configure les flows. On teste en direct devant vous.</p></div></div>
-      <div class="pstep"><div class="pnum">3</div><div class="pbod"><h3>Go live le soir même</h3><p>Dès la nuit, votre assistant répond à vos clients. Vous voyez les réservations arriver.</p></div></div>
-      <div class="pstep"><div class="pnum">4</div><div class="pbod"><h3>Suivi mensuel inclus</h3><p>Rapport automatique, ajustements sur demande, support WhatsApp 7j/7.</p></div></div>
+      <div class="svc"><div class="svi" style="background:var(--bls)">💬</div><h3>Réservations 24h/24</h3><p>Confirmation instantanée, rappels 2h avant, zéro no-show. Votre agenda se remplit seul.</p></div>
+      <div class="svc"><div class="svi" style="background:var(--gns)">💰</div><h3>Upsell automatique</h3><p>Propose extras, menus et upgrades au bon moment. +15% de CA en moyenne.</p></div>
+      <div class="svc"><div class="svi" style="background:#fefce8">⭐</div><h3>Avis Google auto</h3><p>Après chaque visite, l'assistant invite les clients satisfaits. Votre note monte.</p></div>
+      <div class="svc"><div class="svi" style="background:#f5f3ff">📅</div><h3>Google Calendar</h3><p>Chaque réservation apparaît automatiquement dans votre agenda. Zéro double booking.</p></div>
+      <div class="svc"><div class="svi" style="background:var(--stone)">🎯</div><h3>FAQ instantanée</h3><p>Horaires, prix, allergies — répondus en 3 secondes, même à 3h du matin.</p></div>
+      <div class="svc"><div class="svi" style="background:#fff1f2">📣</div><h3>Campagnes WhatsApp</h3><p>"Places dispo demain" ou "–20% ce soir" — envoyé à toute votre base en 1 clic.</p></div>
     </div>
   </div>
 </section>
@@ -457,57 +427,58 @@ footer{background:var(--tx);padding:44px 26px 28px}
 <!-- PRICING -->
 <section style="background:var(--off)" id="tarifs">
   <div class="wrap">
-    <div style="margin-bottom:44px"><span class="lbl">Tarifs</span><h2>Transparent.<br/>Sans surprise.</h2></div>
+    <div style="margin-bottom:38px"><span class="lbl">Tarifs</span><h2>Transparent. Sans surprise.</h2></div>
     <div class="pgrid">
       <div class="pc">
         <div class="pnm">Starter</div><div class="pdsc">Pour tester sans risque</div>
-        <div class="pprice">0€<sub> / 1er mois</sub></div>
+        <div class="pprice">0€<sub>/1er mois</sub></div>
         <ul class="pfl">
           <li><span class="pck">✓</span>Chatbot WhatsApp ou Instagram</li>
           <li><span class="pck">✓</span>Réservations automatiques</li>
-          <li><span class="pck">✓</span>FAQ personnalisée</li>
+          <li><span class="pck">✓</span>FAQ personnalisée (menu, horaires)</li>
           <li><span class="pck">✓</span>Rapport de fin de mois</li>
         </ul>
         <a href="#inscription" class="bs" style="width:100%;justify-content:center">Commencer gratuitement</a>
       </div>
       <div class="pc feat">
         <div class="pbdg">Le plus populaire</div>
-        <div class="pnm">Essential</div><div class="pdsc">Pour les établissements actifs</div>
-        <div class="pprice">250€<sub> / mois</sub></div>
+        <div class="pnm">Pro</div><div class="pdsc">Pour établissements actifs</div>
+        <div class="pprice">249€<sub>/mois</sub></div>
         <ul class="pfl">
           <li><span class="pck">✓</span>WhatsApp + Instagram simultanément</li>
           <li><span class="pck">✓</span>Upsell automatique activé</li>
-          <li><span class="pck">✓</span>Collecte d'avis Google</li>
+          <li><span class="pck">✓</span>Avis Google automatiques</li>
+          <li><span class="pck">✓</span>Google Calendar intégré</li>
           <li><span class="pck">✓</span>Rappels & relances clients</li>
           <li><span class="pck">✓</span>Rapport mensuel détaillé</li>
-          <li><span class="pck">✓</span>Modifications illimitées</li>
         </ul>
         <a href="#inscription" class="bpi">Démarrer maintenant →</a>
       </div>
       <div class="pc">
-        <div class="pnm">Premium</div><div class="pdsc">Multi-sites & groupes</div>
-        <div class="pprice">490€<sub> / mois</sub></div>
+        <div class="pnm">Premium</div><div class="pdsc">Multi-sites & grandes enseignes</div>
+        <div class="pprice">499€<sub>/mois</sub></div>
         <ul class="pfl">
-          <li><span class="pck">✓</span>Tout Essential inclus</li>
+          <li><span class="pck">✓</span>Tout Pro inclus</li>
           <li><span class="pck">✓</span>Jusqu'à 3 établissements</li>
-          <li><span class="pck">✓</span>Campagnes promotionnelles auto</li>
+          <li><span class="pck">✓</span>Campagnes WhatsApp illimitées</li>
+          <li><span class="pck">✓</span>CRM clients intégré</li>
           <li><span class="pck">✓</span>Appel mensuel stratégie</li>
         </ul>
         <a href="#inscription" class="bs" style="width:100%;justify-content:center">Nous contacter</a>
       </div>
     </div>
-    <p style="text-align:center;margin-top:18px;font-size:13px;color:var(--tx3)">Sans engagement · Résiliation à tout moment · 1er mois offert</p>
+    <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--tx3)">Sans engagement · Résiliation à tout moment · 1er mois offert sur tous les plans</p>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
 <section style="background:var(--w)">
   <div class="wrap">
-    <div style="margin-bottom:44px"><span class="lbl">Témoignages</span><h2>Ce qu'ils disent</h2></div>
+    <div style="margin-bottom:38px"><span class="lbl">Témoignages</span><h2>Ce qu'ils disent</h2></div>
     <div class="tgrid">
-      <div class="tc"><div class="stars">★★★★★</div><p>"Le bot a vendu le menu dégustation à 8 tables le premier week-end. Je ne réponds plus aux messages pendant le service."</p><div class="tauth"><div class="tav">M</div><div><div class="taun">Marc D.</div><div class="taub">Bistrot des Batignolles, Paris 17e</div></div></div></div>
+      <div class="tc"><div class="stars">★★★★★</div><p>"Le bot a vendu le menu dégustation à 8 tables le 1er week-end. Je ne réponds plus aux messages pendant le service."</p><div class="tauth"><div class="tav">M</div><div><div class="taun">Marc D.</div><div class="taub">Bistrot des Batignolles, Paris 17e</div></div></div></div>
       <div class="tc"><div class="stars">★★★★★</div><p>"47 réservations automatiques en 30 jours. Mes avis Google sont passés de 4.1 à 4.6 étoiles en un mois."</p><div class="tauth"><div class="tav">S</div><div><div class="taun">Sarah K.</div><div class="taub">Salon Lumière, Paris 11e</div></div></div></div>
-      <div class="tc"><div class="stars">★★★★★</div><p>"250€ par mois c'est le prix d'une soirée ratée. Avec Flowly j'économise 2 heures par jour. Aucune hésitation."</p><div class="tauth"><div class="tav">T</div><div><div class="taun">Thomas B.</div><div class="taub">Barbershop Republic, Paris 3e</div></div></div></div>
+      <div class="tc"><div class="stars">★★★★★</div><p>"249€ par mois c'est le prix d'une soirée ratée. Avec Flowly j'économise 2h par jour. Aucune hésitation."</p><div class="tauth"><div class="tav">T</div><div><div class="taun">Thomas B.</div><div class="taub">Barbershop Republic, Paris 3e</div></div></div></div>
     </div>
   </div>
 </section>
@@ -529,28 +500,28 @@ footer{background:var(--tx);padding:44px 26px 28px}
       <div class="reg-form">
         <h3>Créer mon compte Flowly</h3>
         <p class="fmsub">Gratuit le 1er mois · Installation offerte</p>
-        <div class="fgrow">
+        <div class="fgr">
           <div class="fg"><label>Prénom *</label><input type="text" id="f-prenom" placeholder="Jean"/></div>
           <div class="fg"><label>Nom</label><input type="text" id="f-nom" placeholder="Dupont"/></div>
         </div>
-        <div class="fg"><label>Nom de l'établissement *</label><input type="text" id="f-etab" placeholder="Le Bistrot de la Place"/></div>
-        <div class="fgrow">
-          <div class="fg"><label>Type d'établissement</label>
+        <div class="fg"><label>Établissement *</label><input type="text" id="f-etab" placeholder="Le Bistrot de la Place"/></div>
+        <div class="fgr">
+          <div class="fg"><label>Type</label>
             <select id="f-type">
-              <option>Restaurant</option><option>Café / Bar</option>
-              <option>Salon de coiffure</option><option>Barbier</option>
-              <option>Institut beauté</option><option>Spa</option>
-              <option>Salle de sport</option><option>Dentiste</option><option>Autre</option>
+              <option>Restaurant</option><option>Café / Bar</option><option>Coiffeur</option>
+              <option>Barbier</option><option>Beauté / Ongles</option><option>Spa</option>
+              <option>Salle de sport</option><option>Dentiste</option><option>Hôtel</option>
+              <option>Boulangerie</option><option>Autre</option>
             </select>
           </div>
           <div class="fg"><label>Arrondissement</label><input type="text" id="f-arr" placeholder="11e"/></div>
         </div>
-        <div class="fg"><label>Numéro WhatsApp *</label><input type="tel" id="f-tel" placeholder="+33 6 xx xx xx xx"/></div>
-        <div class="fg"><label>Email *</label><input type="email" id="f-email" placeholder="jean@monrestaurant.fr"/></div>
-        <div class="fg"><label>Votre problème principal (optionnel)</label><textarea id="f-msg" placeholder="Ex : je reçois 40 messages par jour et je n'arrive plus à suivre..."></textarea></div>
-        <button class="bbl" style="width:100%;justify-content:center;font-size:15px;padding:14px" onclick="submitForm()">Démarrer gratuitement →</button>
+        <div class="fg"><label>WhatsApp *</label><input type="tel" id="f-tel" placeholder="+33 6 xx xx xx xx"/></div>
+        <div class="fg"><label>Email *</label><input type="email" id="f-email" placeholder="jean@moncommerce.fr"/></div>
+        <div class="fg"><label>Votre problème (optionnel)</label><textarea id="f-msg" placeholder="Ex : je reçois 40 messages/jour et je n'arrive plus à suivre..."></textarea></div>
+        <button class="bbl" style="width:100%;justify-content:center;font-size:15px;padding:13px" onclick="submitForm()">Démarrer gratuitement →</button>
         <div class="fsuccess" id="fsuccess"><p>✅ Inscription reçue ! Je vous contacte sous 2h sur WhatsApp. À très vite !</p></div>
-        <p style="font-size:11px;color:var(--tx3);text-align:center;margin-top:11px">Vos données ne sont jamais revendues. Réponse garantie sous 2h.</p>
+        <p style="font-size:11px;color:var(--tx3);text-align:center;margin-top:9px">Vos données ne sont jamais revendues.</p>
       </div>
     </div>
   </div>
@@ -561,22 +532,21 @@ footer{background:var(--tx);padding:44px 26px 28px}
   <div class="wrap">
     <div class="share-in">
       <div>
-        <span class="lbl" style="display:block;margin-bottom:10px">Partage rapide</span>
-        <h2 style="margin-bottom:14px">Partagez<br/>en un scan</h2>
-        <p style="margin-bottom:26px">Envoyez le lien directement ou montrez le QR code. Le commerçant accède à cette page en un instant.</p>
+        <span class="lbl" style="display:block;margin-bottom:9px">Partage rapide</span>
+        <h2 style="margin-bottom:12px">Partagez en un scan</h2>
+        <p style="margin-bottom:22px">Montrez le QR code sur votre téléphone ou envoyez le lien. Le commerçant accède au site instantanément.</p>
         <div class="slc">
-          <div class="slc-l">🔗 Lien direct cliquable</div>
+          <div class="slc-l">🔗 Lien direct</div>
           <div class="slc-url" onclick="copyLink()"><span id="site-link">flowly-site-nine.vercel.app</span><span class="slc-cp">Copier</span></div>
         </div>
         <div class="slc">
-          <div class="slc-l">📱 Partager via WhatsApp</div>
-          <div class="slc-url" onclick="shareWA()" style="cursor:pointer"><span>Envoyer le lien à un restaurateur</span><span class="slc-cp" style="background:#dcf8c6;color:#128c7e">WhatsApp ↗</span></div>
+          <div class="slc-l">📱 Partager par WhatsApp</div>
+          <div class="slc-url" onclick="shareWA()" style="cursor:pointer"><span>Envoyer à un commerçant</span><span class="slc-cp" style="background:#dcf8c6;color:#128c7e">WhatsApp ↗</span></div>
         </div>
-        <p style="font-size:12px;color:var(--tx3);margin-top:10px">Mettez à jour l'URL avec votre lien Vercel réel.</p>
       </div>
       <div class="qr-card">
         <div style="font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:3px">Scanner pour accéder au site</div>
-        <div style="font-size:12px;color:var(--tx3);margin-bottom:14px">Compatible iPhone et Android</div>
+        <div style="font-size:12px;color:var(--tx3);margin-bottom:13px">Compatible iPhone et Android</div>
         <div class="qr-frame"><div id="qrcode"></div></div>
         <div class="qr-url" id="qrurl">flowly-site-nine.vercel.app</div>
         <div class="qr-btns">
@@ -592,9 +562,9 @@ footer{background:var(--tx);padding:44px 26px 28px}
 <footer>
   <div class="wrap">
     <div class="ft-in">
-      <div class="ft-brand"><div class="fl">Flowly</div><p>Automatisation IA pour les commerces locaux parisiens.</p></div>
-      <div class="ft-col"><h4>Produit</h4><a href="#demo">Démo live</a><a href="#services">Services</a><a href="#tarifs">Tarifs</a></div>
-      <div class="ft-col"><h4>Secteurs</h4><a href="#inscription">Restaurants</a><a href="#inscription">Salons & Barbiers</a><a href="#inscription">Spas & Beauté</a></div>
+      <div class="ft-brand"><div class="fl">Flowly</div><p>Automatisation IA WhatsApp pour commerces locaux parisiens.</p></div>
+      <div class="ft-col"><h4>Produit</h4><a href="#demos">Démos métiers</a><a href="#services">Services</a><a href="#tarifs">Tarifs</a></div>
+      <div class="ft-col"><h4>Secteurs</h4><a href="#demos">Restaurants</a><a href="#demos">Coiffeurs & Barbiers</a><a href="#demos">Beauté & Spa</a></div>
       <div class="ft-col"><h4>Contact</h4><a href="#inscription">Commencer gratuitement</a><a href="#partage">QR Code & partage</a></div>
     </div>
     <div class="ft-bot"><p>© 2026 Flowly · Paris, France</p><p>1er mois offert · Sans engagement</p></div>
@@ -602,110 +572,421 @@ footer{background:var(--tx);padding:44px 26px 28px}
 </footer>
 
 <script>
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>20));
-
-function showTab(id,btn){
-  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));
-  document.getElementById('tab-'+id).classList.add('on');
-  btn.classList.add('on');
-}
-
-// WA DEMO
-const DM=[
-  {f:'o',t:'Bonjour, vous avez de la place ce soir à 20h pour 4 personnes ?',d:0},
-  {f:'i',t:'Bonsoir ! 🍽️ Oui, une table est disponible à 20h pour 4 personnes.\nJe confirme la réservation ?',d:1400,b:1},
-  {f:'o',t:'Oui parfait !',d:2700},
-  {f:'i',t:'✅ Réservation confirmée ! Table pour 4 à 20h.\nNom pour la réservation ?',d:3900,b:1},
-  {f:'o',t:'Dupont',d:4900},
-  {f:'i',t:'Parfait M. Dupont ! 🎉\nVous recevrez un rappel 2h avant.\n\n👉 Menu dégustation 45€/pers ce soir — souhaitez-vous le réserver ?',d:6200,b:1,u:1},
-  {f:'o',t:'Oh oui, pour 2 personnes !',d:7600},
-  {f:'i',t:'Super ! 2 menus dégustation notés 🍷\nÀ ce soir, M. Dupont !',d:8800,b:1},
+// ─── DATA ───
+var SECTORS = [
+  {id:'restaurant',icon:'🍽️',name:'Restaurant',color:'#ea580c',bg:'#fff7ed',
+   title:'Assistant IA pour restaurants',desc:'Réservations, menus, horaires et upsell automatisés sur WhatsApp.',
+   msgs:[
+    {f:'o',t:'Bonsoir, avez-vous une table pour 2 ce soir à 21h ?',d:0},
+    {f:'i',t:'Bonsoir ! 👋 Oui, il nous reste des disponibilités à 20h45 ou 21h15.\n\nLaquelle vous convient ?',d:1400,b:1},
+    {f:'o',t:'21h15 c\'est parfait',d:2700},
+    {f:'i',t:'✅ Réservation confirmée pour 2 personnes à 21h15 !\n\nNom pour la réservation ?',d:3900,b:1},
+    {f:'o',t:'Moreau',d:4900},
+    {f:'i',t:'Parfait M. Moreau ! 🎉\n\n👉 Notre menu dégustation à 45€/pers est dispo ce soir — souhaitez-vous le réserver ?',d:6100,b:1,u:1},
+    {f:'o',t:'Oui pour 2 !',d:7400},
+    {f:'i',t:'Super ! 2 menus dégustation notés 🍷\nÀ ce soir M. Moreau !',d:8600,b:1}
+   ],
+   gain:90,
+   feats:[
+    {ic:'📅',bg:'#fff7ed',t:'Réservation automatique',d:'Table, heure, personnes — confirmé en 30 secondes.'},
+    {ic:'🍷',bg:'#fef9c3',t:'Upsell menu du soir',d:'Propose le menu spécial au bon moment. +45€ en moyenne.'},
+    {ic:'🔔',bg:'#f0fdf4',t:'Rappel 2h avant',d:'Zéro no-show. Le rappel part automatiquement.'},
+    {ic:'⭐',bg:'#eff6ff',t:'Avis Google auto',d:'Invite vos clients satisfaits après chaque repas.'}
+   ]},
+  {id:'coiffeur',icon:'💇',name:'Coiffeur',color:'#8b5cf6',bg:'#f5f3ff',
+   title:'Assistant IA pour salons de coiffure',desc:'RDV, choix prestation, rappels et upsell soins — 100% automatisés.',
+   msgs:[
+    {f:'o',t:'Bonjour, vous êtes dispo demain pour une coupe ?',d:0},
+    {f:'i',t:'Bonjour ! 💇 Oui, nous avons des créneaux demain.\n\nCoupe homme ou femme ?',d:1300,b:1},
+    {f:'o',t:'Femme',d:2400},
+    {f:'i',t:'Parfait ! Disponible demain :\n• 10h00\n• 14h30\n• 16h00\n\nLaquelle vous convient ?',d:3500,b:1},
+    {f:'o',t:'14h30',d:4500},
+    {f:'i',t:'✅ Réservé ! Coupe femme demain à 14h30.\n\nVotre prénom ?',d:5700,b:1},
+    {f:'o',t:'Marie',d:6600},
+    {f:'i',t:'Parfait Marie ! 🎉\n\n👉 Souhaitez-vous ajouter un soin hydratant ? (+18€)',d:7800,b:1,u:1},
+    {f:'o',t:'Oui, pourquoi pas !',d:9000},
+    {f:'i',t:'Noté ! Coupe + soin hydratant 💆\nÀ demain 14h30, Marie !',d:10100,b:1}
+   ],
+   gain:50,
+   feats:[
+    {ic:'💇',bg:'#f5f3ff',t:'RDV automatique',d:'Coupe homme/femme, créneau, confirmation en 1 min.'},
+    {ic:'✨',bg:'#fef9c3',t:'Upsell soins',d:'Propose le soin adapté automatiquement. +18€ en moyenne.'},
+    {ic:'🔔',bg:'#f0fdf4',t:'Rappel 24h avant',d:'Réduit les no-shows de 80%.'},
+    {ic:'📅',bg:'#eff6ff',t:'Google Calendar',d:'Chaque RDV s\'ajoute à votre agenda automatiquement.'}
+   ]},
+  {id:'barbier',icon:'✂️',name:'Barbier',color:'#0f766e',bg:'#f0fdfa',
+   title:'Assistant IA pour barbiers',desc:'Fort volume WhatsApp. Simple, rapide, pack barbe + coupe automatisé.',
+   msgs:[
+    {f:'o',t:'Salut, vous êtes dispo aujourd\'hui ?',d:0},
+    {f:'i',t:'Salut ! ✂️ Oui.\n\nDisponible aujourd\'hui :\n• 15h30\n• 17h00\n\nLaquelle ?',d:1200,b:1},
+    {f:'o',t:'15h30 c\'est bon',d:2300},
+    {f:'i',t:'✅ Réservé à 15h30 !\n\nTon prénom ?',d:3400,b:1},
+    {f:'o',t:'Karim',d:4300},
+    {f:'i',t:'Ok Karim 👊\n\n👉 Pack Barbe + Coupe disponible cet après-midi.\nCoupe seule : 28€ — Pack complet : 40€ ✂️🧔',d:5400,b:1,u:1},
+    {f:'o',t:'Vas-y pour le pack !',d:6600},
+    {f:'i',t:'Parfait ! Pack Coupe + Barbe à 15h30 🔥\nÀ tout à l\'heure Karim !',d:7700,b:1}
+   ],
+   gain:40,
+   feats:[
+    {ic:'✂️',bg:'#f0fdfa',t:'Réservation express',d:'"Dispo ?" → créneaux répondus en 3 secondes.'},
+    {ic:'🧔',bg:'#fef9c3',t:'Pack Barbe + Coupe',d:'Proposé automatiquement à chaque client.'},
+    {ic:'💬',bg:'#f0fdf4',t:'Tarifs instantanés',d:'Prix et disponibilités sans décrocher le téléphone.'},
+    {ic:'🔔',bg:'#eff6ff',t:'Rappel 1h avant',d:'Le client n\'oublie plus.'}
+   ]},
+  {id:'beaute',icon:'💅',name:'Beauté',color:'#db2777',bg:'#fdf2f8',
+   title:'Assistant IA pour instituts beauté',desc:'Ongles, soins, RDV et upsell nail art — automatisés sur WhatsApp.',
+   msgs:[
+    {f:'o',t:'Bonjour, vous avez de la place pour les ongles ?',d:0},
+    {f:'i',t:'Bonjour ! 💅 Bien sûr.\n\nQuelle prestation souhaitez-vous ?',d:1300,b:1},
+    {f:'o',t:'Pose gel',d:2400},
+    {f:'i',t:'Pose gel : 45€ ✨\n\nDisponible :\n• Demain 11h\n• Demain 15h\n• Jeudi 10h',d:3500,b:1},
+    {f:'o',t:'Demain 11h',d:4500},
+    {f:'i',t:'✅ Réservé ! Pose gel demain à 11h.\n\nVotre prénom ?',d:5600,b:1},
+    {f:'o',t:'Sofia',d:6500},
+    {f:'i',t:'Parfait Sofia ! 🌸\n\n👉 Souhaitez-vous ajouter du nail art (+20€) ?',d:7600,b:1,u:1},
+    {f:'o',t:'Oui, avec plaisir !',d:8800},
+    {f:'i',t:'Super ! Pose gel + nail art : 65€ 💅\nÀ demain à 11h Sofia !',d:9900,b:1}
+   ],
+   gain:65,
+   feats:[
+    {ic:'💅',bg:'#fdf2f8',t:'RDV automatique',d:'Pose gel, manucure, soins — réservé en 2 minutes.'},
+    {ic:'🎨',bg:'#fef9c3',t:'Upsell nail art',d:'Propose le nail art automatiquement. +20€ par client.'},
+    {ic:'💳',bg:'#f0fdf4',t:'Demande d\'acompte',d:'Réduit les no-shows automatiquement.'},
+    {ic:'📸',bg:'#eff6ff',t:'Galerie de modèles',d:'Photos d\'inspiration envoyées dans la conversation.'}
+   ]},
+  {id:'spa',icon:'🧘',name:'Spa',color:'#0891b2',bg:'#ecfeff',
+   title:'Assistant IA pour spas & massages',desc:'Forfaits, massages duo, disponibilités — réservations premium automatisées.',
+   msgs:[
+    {f:'o',t:'Bonjour, vous proposez des massages duo ?',d:0},
+    {f:'i',t:'Bonjour ! 🧘 Oui, voici nos massages duo :\n\n• 60 min : 140€\n• 90 min : 190€\n• Forfait spa duo : 220€',d:1400,b:1},
+    {f:'o',t:'Le 60 min pour ce week-end',d:2700},
+    {f:'i',t:'Disponibilités ce week-end :\n• Samedi 15h\n• Dimanche 11h\n• Dimanche 16h',d:3900,b:1},
+    {f:'o',t:'Samedi 15h',d:5000},
+    {f:'i',t:'✅ Réservé ! Massage duo samedi à 15h — 140€.\n\nPrénom ?',d:6200,b:1,u:1},
+    {f:'o',t:'Lucie et Thomas',d:7300},
+    {f:'i',t:'Parfait Lucie & Thomas ! 💆\nÀ samedi à 15h, on vous attend 🌸',d:8500,b:1}
+   ],
+   gain:140,
+   feats:[
+    {ic:'🧘',bg:'#ecfeff',t:'Forfaits automatiques',d:'Massages et soins présentés et réservés en 1 message.'},
+    {ic:'💆',bg:'#fef9c3',t:'Upsell upgrades',d:'Propose les forfaits supérieurs au bon moment.'},
+    {ic:'📅',bg:'#f0fdf4',t:'Disponibilités live',d:'Créneaux affichés en temps réel.'},
+    {ic:'🌹',bg:'#fdf2f8',t:'Expérience premium',d:'Ton chaleureux, personnalisé à votre image.'}
+   ]},
+  {id:'dentiste',icon:'🦷',name:'Dentiste',color:'#6d28d9',bg:'#f5f3ff',
+   title:'Assistant IA pour dentistes',desc:'Urgences, RDV, rappels — répondus automatiquement 24h/24.',
+   msgs:[
+    {f:'o',t:'Bonjour j\'ai mal aux dents depuis hier, c\'est urgent',d:0},
+    {f:'i',t:'Bonjour ! 🦷 Je comprends, c\'est prioritaire.\n\nNous avons un créneau urgence :\n• Aujourd\'hui à 16h30\n• Demain matin à 8h30',d:1400,b:1},
+    {f:'o',t:'Aujourd\'hui 16h30 si possible',d:2700},
+    {f:'i',t:'✅ Créneau urgence confirmé aujourd\'hui à 16h30.\n\nVotre nom ?',d:3900,b:1},
+    {f:'o',t:'Bernard',d:4900},
+    {f:'i',t:'Parfait M. Bernard ! 🙏\n\nApportez votre carte vitale.\nVous recevrez un rappel 1h avant. À tout à l\'heure !',d:6100,b:1,u:1}
+   ],
+   gain:80,
+   feats:[
+    {ic:'🦷',bg:'#f5f3ff',t:'Urgences gérées',d:'Détecte les urgences et propose un créneau immédiat.'},
+    {ic:'📅',bg:'#eff6ff',t:'RDV automatique',d:'Détartrage, consultation — planifiés sans appel.'},
+    {ic:'🔔',bg:'#f0fdf4',t:'Rappels patients',d:'Rappel 24h + 1h avant. Moins d\'absences.'},
+    {ic:'📞',bg:'#fdf2f8',t:'Moins d\'appels',d:'80% des questions répondues sans secrétaire.'}
+   ]},
+  {id:'sport',icon:'🏋️',name:'Sport',color:'#dc2626',bg:'#fff1f2',
+   title:'Assistant IA pour salles de sport',desc:'Horaires, séances d\'essai, cours et abonnements — automatisés.',
+   msgs:[
+    {f:'o',t:'Bonjour quels sont vos tarifs et horaires ?',d:0},
+    {f:'i',t:'Bonjour ! 🏋️\n\nHoraires : Lun-Ven 7h-22h · Sam-Dim 9h-19h\n\nAbonnements :\n• Sans engagement : 45€/mois\n• 1 an : 35€/mois\n• Journée : 12€',d:1400,b:1},
+    {f:'o',t:'Je voudrais faire un essai d\'abord',d:2700},
+    {f:'i',t:'Bien sûr ! 💪 Séance d\'essai gratuite.\n\nDisponible :\n• Aujourd\'hui à 18h\n• Demain à 10h',d:3900,b:1},
+    {f:'o',t:'Demain à 10h',d:5000},
+    {f:'i',t:'✅ Séance d\'essai demain à 10h !\n\nPrénom ?',d:6200,b:1,u:1},
+    {f:'o',t:'Julien',d:7200},
+    {f:'i',t:'Super Julien ! 🔥 Venez en tenue.\nÀ demain !',d:8300,b:1}
+   ],
+   gain:45,
+   feats:[
+    {ic:'🏋️',bg:'#fff1f2',t:'Infos instantanées',d:'Horaires et tarifs répondus automatiquement.'},
+    {ic:'💪',bg:'#fef9c3',t:'Séances d\'essai',d:'Réserve les essais et convertit les prospects.'},
+    {ic:'📋',bg:'#f0fdf4',t:'Relance prospects',d:'Relance automatiquement les non-inscrits.'},
+    {ic:'📅',bg:'#eff6ff',t:'Cours collectifs',d:'Yoga, crossfit — réservables en 1 message.'}
+   ]},
+  {id:'hotel',icon:'🏨',name:'Hôtel',color:'#1d4ed8',bg:'#eff6ff',
+   title:'Assistant IA pour hôtels',desc:'Disponibilités, tarifs, check-in et upgrades — 24h/24 sur WhatsApp.',
+   msgs:[
+    {f:'o',t:'Bonjour, avez-vous une chambre ce week-end ?',d:0},
+    {f:'i',t:'Bonjour ! 🏨 Oui, disponibilités ce week-end :\n\n• Chambre double standard : 120€/nuit\n• Chambre supérieure vue : 150€/nuit\n• Suite junior : 220€/nuit',d:1500,b:1},
+    {f:'o',t:'La standard pour 2 nuits',d:2900},
+    {f:'i',t:'Chambre double standard, 2 nuits = 240€\n\nDate d\'arrivée ?',d:4100,b:1},
+    {f:'o',t:'Samedi',d:5100},
+    {f:'i',t:'✅ Réservation confirmée ! Chambre double, samedi & dimanche.\n\nNom ?',d:6300,b:1,u:1},
+    {f:'o',t:'Martins',d:7400},
+    {f:'i',t:'Parfait M. Martins ! 🗝️\nInfos de check-in envoyées 24h avant. À samedi !',d:8600,b:1}
+   ],
+   gain:220,
+   feats:[
+    {ic:'🏨',bg:'#eff6ff',t:'Disponibilités temps réel',d:'Chambres et tarifs affichés instantanément.'},
+    {ic:'⬆️',bg:'#fef9c3',t:'Upsell upgrades',d:'Propose la chambre supérieure au bon moment.'},
+    {ic:'🗝️',bg:'#f0fdf4',t:'Check-in automatique',d:'Infos d\'arrivée envoyées automatiquement.'},
+    {ic:'🌍',bg:'#fdf2f8',t:'Multilingue',d:'Français, anglais, espagnol — automatique.'}
+   ]},
+  {id:'boulangerie',icon:'🥖',name:'Boulangerie',color:'#b45309',bg:'#fffbeb',
+   title:'Assistant IA pour boulangeries',desc:'Commandes, horaires, spécialités du jour — gérés automatiquement.',
+   msgs:[
+    {f:'o',t:'Bonjour, vous avez encore de la baguette tradition ?',d:0},
+    {f:'i',t:'Bonjour ! 🥖 Oui, il nous en reste.\n\nNous sommes ouverts jusqu\'à 19h30.\n\nSouhaitez-vous réserver votre commande ?',d:1300,b:1},
+    {f:'o',t:'Oui 3 baguettes et des croissants',d:2400},
+    {f:'i',t:'Noté ! 🥐 3 baguettes tradition + croissants.\n\nÀ quelle heure venez-vous récupérer ?',d:3600,b:1},
+    {f:'o',t:'Vers 18h',d:4600},
+    {f:'i',t:'✅ Commande réservée pour 18h !\n\n👉 Notre tarte aux fraises du jour est encore disponible — souhaitez-vous en ajouter une ? (+8€)',d:5800,b:1,u:1},
+    {f:'o',t:'Oui pourquoi pas !',d:7000},
+    {f:'i',t:'Super ! Tout est mis de côté 🍓\nÀ ce soir à 18h !',d:8100,b:1}
+   ],
+   gain:35,
+   feats:[
+    {ic:'🥖',bg:'#fffbeb',t:'Commandes réservées',d:'Le client réserve en ligne, vous préparez sans stress.'},
+    {ic:'🍰',bg:'#fef9c3',t:'Spécialités du jour',d:'Propose les produits du jour automatiquement.'},
+    {ic:'⏰',bg:'#f0fdf4',t:'Horaires instantanés',d:'Ouverture, fermeture — répondus automatiquement.'},
+    {ic:'📦',bg:'#eff6ff',t:'Anti-gaspillage',d:'Écoule les invendus en fin de journée via WhatsApp.'}
+   ]}
 ];
-let running=false;
-function startDemo(){
-  if(running)return; running=true;
-  const btn=document.getElementById('dbtn');
-  btn.textContent='⏳ En cours...'; btn.style.opacity='.65';
-  const chat=document.getElementById('wachat');
-  chat.innerHTML=''; document.getElementById('upsell').classList.add('hidden');
-  DM.forEach((msg,i)=>{
-    if(msg.f==='i'&&i>0)setTimeout(()=>{const t=document.createElement('div');t.className='wtyp';t.innerHTML='<span></span><span></span><span></span>';chat.appendChild(t);chat.scrollTop=9999},msg.d-900);
-    setTimeout(()=>{
-      chat.querySelectorAll('.wtyp').forEach(e=>e.remove());
-      const d=document.createElement('div');
-      d.className='wm '+(msg.f==='i'?'wi':'wo');
-      const tm=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-      if(msg.u)d.style.background='linear-gradient(135deg,#dcfce7,#fff)';
-      d.innerHTML=(msg.b?'<div class="wbl">🤖 Assistant IA</div>':'')+msg.t.replace(/\n/g,'<br/>')+'<div class="wtm">'+tm+(msg.f==='o'?' ✓✓':'')+'</div>';
-      chat.appendChild(d); chat.scrollTop=9999;
-      if(msg.u)setTimeout(()=>document.getElementById('upsell').classList.remove('hidden'),500);
-    },msg.d);
+
+// ─── STATE ───
+var activeId = null;
+var demoRunning = false;
+
+// ─── BUILD BUBBLES ───
+var container = document.getElementById('bubbles-container');
+SECTORS.forEach(function(s) {
+  var btn = document.createElement('button');
+  btn.className = 'bubble';
+  btn.id = 'bubble-' + s.id;
+  btn.style.cssText = '--c:' + s.color;
+  btn.innerHTML = '<span class="bubble-icon">' + s.icon + '</span><span class="bubble-name">' + s.name + '</span>';
+  btn.addEventListener('click', function() { toggleDemo(s.id); });
+  container.appendChild(btn);
+});
+
+// ─── TOGGLE DEMO ───
+function toggleDemo(id) {
+  if (activeId === id) {
+    closeDemo();
+    return;
+  }
+  activeId = id;
+  demoRunning = false;
+
+  // update bubbles
+  document.querySelectorAll('.bubble').forEach(function(b) {
+    b.classList.remove('active');
+    b.style.borderColor = '';
+    b.style.background = '';
   });
-  setTimeout(()=>{btn.textContent='🔄 Relancer la démo';btn.style.opacity='1';running=false},10500);
+  var activeBubble = document.getElementById('bubble-' + id);
+  var s = SECTORS.find(function(x) { return x.id === id; });
+  activeBubble.classList.add('active');
+  activeBubble.style.borderColor = s.color;
+  activeBubble.style.background = s.bg;
+
+  // build panel
+  var panel = document.getElementById('demo-panel');
+  var featsHTML = s.feats.map(function(f) {
+    return '<div class="dp-feat"><div class="dp-fic" style="background:' + f.bg + '">' + f.ic + '</div><div><div class="dp-ft">' + f.t + '</div><div class="dp-fd">' + f.d + '</div></div></div>';
+  }).join('');
+
+  panel.innerHTML =
+    '<div class="dp-header" style="background:' + s.bg + '">' +
+      '<div class="dp-hic" style="background:' + s.bg + ';border:1px solid ' + s.color + '30">' + s.icon + '</div>' +
+      '<div style="flex:1"><h3 style="color:' + s.color + '">' + s.title + '</h3><p>' + s.desc + '</p></div>' +
+      '<button class="dp-close" style="color:' + s.color + ';border-color:' + s.color + '44" onclick="closeDemo()">✕ Fermer</button>' +
+    '</div>' +
+    '<div class="dp-body">' +
+      '<div class="dp-left">' +
+        '<div class="dph">' +
+          '<div class="dph-isl"></div>' +
+          '<div class="dph-sc">' +
+            '<div class="dh" style="background:' + s.color + '">' +
+              '<div class="dav">' + s.icon + '</div>' +
+              '<div><div class="dnm">' + s.name + ' · Paris</div><div class="don">● Assistant IA · 24h/24</div></div>' +
+            '</div>' +
+            '<div class="dmsgs" id="chat-' + id + '"><div style="text-align:center;padding:24px 12px;color:#bbb;font-size:12px">Appuyez sur Lancer →</div></div>' +
+            '<div class="dft-bar"><div class="dft-in">Envoyer un message...</div><div class="dft-snd" style="background:' + s.color + '">➤</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<button class="demo-run-btn" id="run-btn-' + id + '" style="background:' + s.color + '" onclick="runDemo(\'' + id + '\')">▶ Lancer la démo</button>' +
+        '<div class="ca-badge" id="ca-' + id + '" style="display:none">' +
+          '<div class="ca-icon">💰</div>' +
+          '<div><div class="ca-lbl" style="color:' + s.color + '">Généré automatiquement</div><div class="ca-val" id="ca-val-' + id + '">+0€</div></div>' +
+          '<div style="margin-left:auto;font-size:10px;color:var(--tx3);text-align:right">sans intervention<br/>humaine</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="dp-right">' +
+        '<div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:' + s.color + ';margin-bottom:10px">Ce que ça automatise</div>' +
+        '<div class="dp-feats">' + featsHTML + '</div>' +
+      '</div>' +
+    '</div>';
+
+  panel.style.display = 'block';
+  setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
 }
 
-function updROI(){
-  const m=+document.getElementById('s1').value,t=+document.getElementById('s2').value,p=+document.getElementById('s3').value;
-  document.getElementById('v1').textContent=m;
-  document.getElementById('v2').textContent=t;
-  document.getElementById('v3').textContent=p+'€';
-  const h=Math.round(m*3/60*30),u=Math.round(t*.15*25*30),roi=Math.round(u/250*100),net=u-250;
-  document.getElementById('rh').textContent=h+'h';
-  document.getElementById('ru').textContent='+'+u.toLocaleString('fr')+'€';
-  document.getElementById('rr').textContent=roi+'%';
-  document.getElementById('rd2').textContent=u.toLocaleString('fr')+' €';
-  document.getElementById('rd3').textContent=net.toLocaleString('fr')+' €';
+function closeDemo() {
+  activeId = null;
+  demoRunning = false;
+  var panel = document.getElementById('demo-panel');
+  panel.style.display = 'none';
+  panel.innerHTML = '';
+  document.querySelectorAll('.bubble').forEach(function(b) {
+    b.classList.remove('active');
+    b.style.borderColor = '';
+    b.style.background = '';
+  });
 }
 
-// SECTORS
-const S=[['🍕','Restaurant'],['☕','Café/Bar'],['💇','Coiffure'],['✂️','Barbier'],['💅','Beauté'],['🧘','Spa'],['🦷','Dentiste'],['🏋️','Sport'],['🛍️','Boutique'],['🍰','Boulangerie'],['🎭','Loisirs'],['🏠','Hôtel']];
-document.getElementById('secgrid').innerHTML=S.map(([i,n])=>`<div class="seci"><div class="sei">${i}</div><div class="sen">${n}</div></div>`).join('');
+function runDemo(id) {
+  if (demoRunning) return;
+  demoRunning = true;
+  var s = SECTORS.find(function(x) { return x.id === id; });
+  var btn = document.getElementById('run-btn-' + id);
+  var chat = document.getElementById('chat-' + id);
+  var caEl = document.getElementById('ca-' + id);
+  var valEl = document.getElementById('ca-val-' + id);
 
-// QR
-let qrURL='https://flowly-site-nine.vercel.app';
-function genQR(){
-  document.getElementById('qrcode').innerHTML='';
-  new QRCode(document.getElementById('qrcode'),{text:qrURL,width:144,height:144,colorDark:'#1a1916',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-  const c=qrURL.replace('https://','');
-  document.getElementById('qrurl').textContent=c;
-  document.getElementById('site-link').textContent=c;
-}
-function regenQR(){genQR()}
-function changeQR(){const u=prompt('Ton URL Vercel :',qrURL);if(u){qrURL=u.startsWith('http')?u:'https://'+u;genQR()}}
-function copyLink(){
-  navigator.clipboard.writeText(qrURL).then(()=>alert('✅ Lien copié !')).catch(()=>prompt('Copie ce lien :',qrURL));
-}
-function shareWA(){
-  window.open('https://wa.me/?text='+encodeURIComponent('Bonjour ! Découvrez Flowly — automatisation IA pour restaurants 👉 '+qrURL),'_blank');
+  btn.textContent = '⏳ En cours…';
+  btn.style.opacity = '0.65';
+  chat.innerHTML = '';
+  caEl.style.display = 'none';
+
+  s.msgs.forEach(function(msg, i) {
+    if (msg.f === 'i' && i > 0) {
+      setTimeout(function() {
+        var t = document.createElement('div');
+        t.className = 'dtyp';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        chat.appendChild(t);
+        chat.scrollTop = 9999;
+      }, msg.d - 900);
+    }
+    setTimeout(function() {
+      chat.querySelectorAll('.dtyp').forEach(function(e) { e.remove(); });
+      var d = document.createElement('div');
+      d.className = 'dm ' + (msg.f === 'i' ? 'di' : 'do');
+      var tm = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      if (msg.u) d.style.background = 'linear-gradient(135deg,#dcfce7,#fff)';
+      d.innerHTML = (msg.b ? '<div class="dbl">🤖 Assistant IA</div>' : '') +
+        msg.t.replace(/\n/g, '<br/>') +
+        '<div class="dtm">' + tm + (msg.f === 'o' ? ' ✓✓' : '') + '</div>';
+      chat.appendChild(d);
+      chat.scrollTop = 9999;
+      if (msg.u) {
+        setTimeout(function() {
+          caEl.style.display = 'flex';
+          animCA(valEl, s.gain);
+        }, 400);
+      }
+    }, msg.d);
+  });
+
+  var last = s.msgs[s.msgs.length - 1].d + 1600;
+  setTimeout(function() {
+    btn.textContent = '🔄 Relancer la démo';
+    btn.style.opacity = '1';
+    demoRunning = false;
+  }, last);
 }
 
-// FORM
-function submitForm(){
-  const p=document.getElementById('f-prenom').value.trim();
-  const etab=document.getElementById('f-etab').value.trim();
-  const tel=document.getElementById('f-tel').value.trim();
-  const email=document.getElementById('f-email').value.trim();
-  if(!p||!etab||!tel||!email){alert('⚠️ Merci de remplir les champs obligatoires.');return}
-  const nom=document.getElementById('f-nom').value.trim();
-  const type=document.getElementById('f-type').value;
-  const arr=document.getElementById('f-arr').value.trim();
-  const msg=document.getElementById('f-msg').value.trim();
-  console.log('📋 NOUVELLE INSCRIPTION FLOWLY');
-  console.log(`👤 ${p} ${nom}\n🏪 ${etab} (${type})\n📍 Paris ${arr}\n📱 ${tel}\n📧 ${email}\n💬 ${msg||'—'}`);
-  document.getElementById('fsuccess').style.display='block';
-  ['f-prenom','f-nom','f-etab','f-arr','f-tel','f-email','f-msg'].forEach(id=>document.getElementById(id).value='');
+function animCA(el, target) {
+  var cur = 0, step = target / 36;
+  var iv = setInterval(function() {
+    cur = Math.min(cur + step, target);
+    el.textContent = '+' + Math.round(cur) + '€';
+    if (cur >= target) clearInterval(iv);
+  }, 28);
 }
 
-// SCROLL ANIMATIONS
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.08});
-document.querySelectorAll('.svc,.tc,.pc,.pstep,.seci').forEach(el=>{
-  el.style.opacity='0';el.style.transform='translateY(14px)';
-  el.style.transition='opacity .5s ease,transform .5s ease';
+// ─── LIVE COUNTER ───
+var liveTotal = 0;
+var liveSeq = [90,50,40,65,140,220,80,45,35,90,28,65,45,140,90,50];
+var liveIdx = 0;
+function tickLive() {
+  liveTotal += liveSeq[liveIdx % liveSeq.length];
+  liveIdx++;
+  document.getElementById('live-total').textContent = liveTotal.toLocaleString('fr') + '€';
+  setTimeout(tickLive, 2600 + Math.random() * 2400);
+}
+setTimeout(tickLive, 3000);
+
+// ─── NAV ───
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('sc', window.scrollY > 20);
+});
+
+// ─── QR ───
+var qrURL = 'https://flowly-site-nine.vercel.app';
+function genQR() {
+  document.getElementById('qrcode').innerHTML = '';
+  new QRCode(document.getElementById('qrcode'), {
+    text: qrURL, width: 138, height: 138,
+    colorDark: '#1a1916', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+  var c = qrURL.replace('https://', '');
+  document.getElementById('qrurl').textContent = c;
+  document.getElementById('site-link').textContent = c;
+}
+function regenQR() { genQR(); }
+function changeQR() {
+  var u = prompt('Ton URL Vercel :', qrURL);
+  if (u) { qrURL = u.startsWith('http') ? u : 'https://' + u; genQR(); }
+}
+function copyLink() {
+  navigator.clipboard.writeText(qrURL)
+    .then(function() { alert('✅ Lien copié !'); })
+    .catch(function() { prompt('Copie ce lien :', qrURL); });
+}
+function shareWA() {
+  window.open('https://wa.me/?text=' + encodeURIComponent('Bonjour ! Voici Flowly, l\'assistant IA WhatsApp pour votre commerce : ' + qrURL), '_blank');
+}
+
+// ─── FORM ───
+function submitForm() {
+  var p = document.getElementById('f-prenom').value.trim();
+  var etab = document.getElementById('f-etab').value.trim();
+  var tel = document.getElementById('f-tel').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  if (!p || !etab || !tel || !email) {
+    alert('⚠️ Merci de remplir les champs obligatoires (Prénom, Établissement, WhatsApp, Email).');
+    return;
+  }
+  var recap = '📋 NOUVELLE INSCRIPTION FLOWLY\n\n' +
+    '👤 ' + p + ' ' + document.getElementById('f-nom').value.trim() + '\n' +
+    '🏪 ' + etab + ' (' + document.getElementById('f-type').value + ')\n' +
+    '📍 Paris ' + document.getElementById('f-arr').value.trim() + '\n' +
+    '📱 ' + tel + '\n' +
+    '📧 ' + email + '\n' +
+    '💬 ' + (document.getElementById('f-msg').value.trim() || '—');
+  console.log(recap);
+  document.getElementById('fsuccess').style.display = 'block';
+  ['f-prenom','f-nom','f-etab','f-arr','f-tel','f-email','f-msg'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+}
+
+// ─── SCROLL ANIMATIONS ───
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.svc,.tc,.pc,.bubble').forEach(function(el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(12px)';
+  el.style.transition = 'opacity .45s ease, transform .45s ease';
   obs.observe(el);
 });
 
-window.addEventListener('load',()=>{genQR();updROI()});
+window.addEventListener('load', function() { genQR(); });
 </script>
 </body>
 </html>
